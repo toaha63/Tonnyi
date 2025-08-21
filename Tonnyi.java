@@ -1,6 +1,7 @@
 import java.io.*;
 import java.math.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 public class Tonnyi
 {
@@ -14,9 +15,9 @@ public class Tonnyi
 
     public Tonnyi()
     {
-        memory = new HashMap<>();
+        memory = new ConcurrentHashMap<>();
         callStack = new Stack<>();
-        labels = new HashMap<>();
+        labels = new ConcurrentHashMap<>();
         programCounter = 0;
         running = true;
         comparisonResult = 0;
@@ -946,6 +947,7 @@ public class Tonnyi
     private static void printHelp()
     {
         System.out.println("=== Tonnyi ===");
+        System.out.println("                                     -Version: 1.00");
         System.out.println("7-bit instruction set with 128 possible operations");
         System.out.println();
         System.out.println("USAGE:");
