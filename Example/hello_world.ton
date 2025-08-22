@@ -1,0 +1,31 @@
+// =============================================================================
+// Program: hello_world.ton
+// Description: Classic "Hello World!" program demonstrating string storage
+//              and output using the PRINT STRING instruction.
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// Memory Map:
+//   0x1000-0x100C: String buffer for "Hello World!" with null termination
+// =============================================================================
+
+// Initialize string "Hello World!" in memory with null termination
+0b0000100 0x1000 #72   // 'H' - ASCII 72
+0b0000100 0x1001 #101  // 'e' - ASCII 101
+0b0000100 0x1002 #108  // 'l' - ASCII 108
+0b0000100 0x1003 #108  // 'l' - ASCII 108
+0b0000100 0x1004 #111  // 'o' - ASCII 111
+0b0000100 0x1005 #32   // ' ' - ASCII 32 (space)
+0b0000100 0x1006 #87   // 'W' - ASCII 87
+0b0000100 0x1007 #111  // 'o' - ASCII 111
+0b0000100 0x1008 #114  // 'r' - ASCII 114
+0b0000100 0x1009 #108  // 'l' - ASCII 108
+0b0000100 0x100A #100  // 'd' - ASCII 100
+0b0000100 0x100B #33   // '!' - ASCII 33
+0b0000100 0x100C #0    // Null terminator - ASCII 0
+
+// Output the null-terminated string
+0b0101000 0x1000       // PRINT STRING starting at address 0x1000
+
+// Terminate program execution
+0b0000000              // HALT
+// =============================================================================
