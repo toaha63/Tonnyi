@@ -1,0 +1,56 @@
+// =============================================================================
+// Program: fibonacci.ton
+// Description: Generates and prints the complete Fibonacci sequence up to but
+//              not exceeding a specified maximum value (1000).
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// Memory Map:
+//   0x3000: F(n-2) - Previous Fibonacci number
+//   0x3001: F(n-1) - Current Fibonacci number  
+//   0x3002: MAX_VALUE - Upper bound for sequence generation (1000)
+//   0x3003: next - Temporary storage for next Fibonacci number calculation
+//   0x3100: Temporary character storage for output formatting
+// =============================================================================
+
+// Initialize Fibonacci sequence with F(0) = 0, F(1) = 1
+0b0000100 0x3000 #0    // F(n-2) = F(0) = 0
+0b0000100 0x3001 #1    // F(n-1) = F(1) = 1
+0b0000100 0x3002 #1000 // Set upper bound: MAX_VALUE = 1000
+
+// Print initial Fibonacci numbers F(0) and F(1)
+0b0000011 0x3000       // PRINT F(0)
+0b0000100 0x3100 #32   // Load ASCII space character for formatting
+0b0100111 0x3100       // PRINT CHAR (space)
+0b0000011 0x3001       // PRINT F(1)
+0b0000100 0x3100 #32   // Load ASCII space character
+0b0100111 0x3100       // PRINT CHAR (space)
+
+sequence_generation_loop:
+    // Calculate next Fibonacci number: F(n) = F(n-1) + F(n-2)
+    0b0000101 0x3003 0x3001 // next = F(n-1) (copy current to temp)
+    0b0001010 0x3003 0x3000 // next = next + F(n-2) (add previous)
+    
+    // Boundary check: Verify next number doesn't exceed maximum value
+    0b0011010 0x3003 0x3002 // COMPARE(next, MAX_VALUE)
+    0b0100000 terminate_program  // JUMP IF GREATER: if next > MAX_VALUE, exit
+
+    // Output the valid Fibonacci number
+    0b0000011 0x3003       // PRINT next (valid Fibonacci number)
+    0b0000100 0x3100 #32   // Load ASCII space character
+    0b0100111 0x3100       // PRINT CHAR (space)
+
+    // Update sequence pointers for next iteration
+    0b0000110 0x3000 0x3001 // F(n-2) = F(n-1) (shift previous)
+    0b0000110 0x3001 0x3003 // F(n-1) = next   (shift current)
+
+    // Continue sequence generation
+    0b0011011 sequence_generation_loop // JUMP to generate next number
+
+terminate_program:
+    // Output formatting: Print newline character for clean output
+    0b0000100 0x3100 #10   // Load ASCII newline character (LF)
+    0b0100111 0x3100       // PRINT CHAR (newline)
+    
+    // Graceful program termination
+    0b0000000              // HALT
+// =============================================================================

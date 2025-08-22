@@ -1,0 +1,59 @@
+// =============================================================================
+// Program: user_input.ton
+// Description: Demonstrates user input handling by calculating circle area
+//              from radius input (Area = πr²).
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// Memory Map:
+//   0x6000-0x600E: String buffer for prompts
+//   0x6100: Radius input storage
+//   0x6101: Constant π (3.1415926535)
+//   0x6102: Area result storage
+// =============================================================================
+
+// Enable debug mode for detailed output
+0b0101010              // DEBUG MODE ON
+
+// Build and display "Enter radius: " prompt
+0b0000100 0x6000 #69   // 'E'
+0b0000100 0x6001 #110  // 'n'
+0b0000100 0x6002 #116  // 't'
+0b0000100 0x6003 #101  // 'e'
+0b0000100 0x6004 #114  // 'r'
+0b0000100 0x6005 #32   // ' '
+0b0000100 0x6006 #114  // 'r'
+0b0000100 0x6007 #97   // 'a'
+0b0000100 0x6008 #100  // 'd'
+0b0000100 0x6009 #105  // 'i'
+0b0000100 0x600A #117  // 'u'
+0b0000100 0x600B #115  // 's'
+0b0000100 0x600C #58   // ':'
+0b0000100 0x600D #32   // ' '
+0b0000100 0x600E #0    // Null terminator
+0b0101000 0x6000       // PRINT STRING prompt
+
+// Read user input for radius
+0b0100110 0x6100       // INPUT radius into 0x6100
+
+// Calculate circle area: Area = π × r²
+0b0000100 0x6101 #3.1415926535 // Load π constant
+0b0000101 0x6102 0x6100        // Copy radius to temp storage
+0b0001100 0x6102 0x6100        // Calculate r²: temp = radius × radius
+0b0001100 0x6102 0x6101        // Calculate area: temp = π × r²
+
+// Build and display "Area: " result prompt
+0b0000100 0x6000 #65   // 'A'
+0b0000100 0x6001 #114  // 'r'
+0b0000100 0x6002 #101  // 'e'
+0b0000100 0x6003 #97   // 'a'
+0b0000100 0x6004 #58   // ':'
+0b0000100 0x6005 #32   // ' '
+0b0000100 0x6006 #0    // Null terminator
+0b0101000 0x6000       // PRINT STRING result prompt
+
+// Display calculated area
+0b0000011 0x6102       // PRINT area result
+
+// Terminate program execution
+0b0000000              // HALT
+// =============================================================================

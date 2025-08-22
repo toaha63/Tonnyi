@@ -1,0 +1,36 @@
+// =============================================================================
+// Program: factorial_clean.ton
+// Description: Calculates factorial of a number (only prints final result)
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// =============================================================================
+
+0b0101011              // DEBUG MODE OFF (no memory debug output)
+
+// Initialize variables
+0b0000100 0x1000 #50    // Input number (n = 5)
+0b0000100 0x1001 #1    // Result (starts at 1)
+0b0000100 0x1002 #1    // Counter (starts at 1)
+
+factorial_loop:
+    // Multiply result by counter: result = result * counter
+    0b0001100 0x1001 0x1002  // MULTIPLY result, counter
+    
+    // Increment counter: counter = counter + 1
+    0b0001111 0x1002         // INCREMENT counter
+    
+    // Compare counter with n: if counter <= n, continue loop
+    0b0011010 0x1002 0x1000  // COMPARE counter, n
+    
+    // If counter <= n, jump back to loop
+    0b0100001 factorial_loop // JUMP IF LESS (counter < n) - continue loop
+    0b0011110 factorial_loop // JUMP IF EQUAL (counter == n) - continue loop
+    
+    // If we get here, counter > n, so exit
+
+exit_loop:
+    // Print only the final result
+    0b0000011 0x1001       // PRINT factorial result (120)
+
+0b0000000              // HALT
+// =============================================================================

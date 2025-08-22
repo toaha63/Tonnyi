@@ -1,0 +1,32 @@
+// =============================================================================
+// Program: debug_demo.ton
+// Description: Demonstrates the difference between debug and normal output modes.
+//              Shows how DEBUG MODE affects PRINT and DUMP MEMORY instructions.
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// Memory Map:
+//   0x7000: First value storage
+//   0x7001: Second value storage
+// =============================================================================
+
+// Enable debug mode for verbose output
+0b0101010              // DEBUG MODE ON
+
+// Initialize test values
+0b0000100 0x7000 #42   // Load value 42 into 0x7000
+0b0000100 0x7001 #100  // Load value 100 into 0x7001
+
+// Demonstrate debug mode output (shows memory address)
+0b0000011 0x7000       // PRINT: shows "Memory[0x7000] = 42"
+0b0000010              // DUMP MEMORY: shows all memory contents
+
+// Disable debug mode for normal output
+0b0101011              // DEBUG MODE OFF
+
+// Demonstrate normal mode output (shows value only)
+0b0000011 0x7001       // PRINT: shows "100" (no memory address)
+0b0000010              // DUMP MEMORY: no output (silent in normal mode)
+
+// Terminate program execution
+0b0000000              // HALT
+// =============================================================================

@@ -1,0 +1,39 @@
+// =============================================================================
+// Program: basic_arithmetic.ton
+// Description: Demonstrates fundamental arithmetic operations including
+//              addition, subtraction, multiplication, and division.
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// Memory Map:
+//   0x2000: Operand A and result storage
+//   0x2001: Operand B
+//   0x2002: Result storage for chained operations
+// =============================================================================
+
+// Enable verbose debug output for educational purposes
+0b0101010              // DEBUG MODE ON
+
+// Initialize operands
+0b0000100 0x2000 #20   // Load immediate value 20 into 0x2000
+0b0000100 0x2001 #5    // Load immediate value 5 into 0x2001
+0b0000100 0x2002 #100  // Load immediate value 100 into 0x2002
+
+// Addition: 20 + 5 = 25
+0b0001010 0x2000 0x2001 // ADD: 0x2000 = 0x2000 + 0x2001
+0b0000011 0x2000        // PRINT result at 0x2000
+
+// Subtraction: 100 - 25 = 75
+0b0001011 0x2002 0x2000 // SUBTRACT: 0x2002 = 0x2002 - 0x2000
+0b0000011 0x2002        // PRINT result at 0x2002
+
+// Multiplication: 5 * 5 = 25
+0b0001100 0x2001 0x2001 // MULTIPLY: 0x2001 = 0x2001 * 0x2001
+0b0000011 0x2001        // PRINT result at 0x2001
+
+// Division: 75 / 25 = 3
+0b0001101 0x2002 0x2001 // DIVIDE: 0x2002 = 0x2002 / 0x2001
+0b0000011 0x2002        // PRINT result at 0x2002
+
+// Terminate program execution
+0b0000000              // HALT
+// =============================================================================

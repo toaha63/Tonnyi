@@ -1,0 +1,37 @@
+// =============================================================================
+// Program: bitwise_operations.ton
+// Description: Demonstrates bitwise operations (AND, OR, XOR, NOT) using
+//              integer values. Uses two's complement representation.
+// Author: Hasin Israk Toaha
+// Date: 21 August 2025
+// Memory Map:
+//   0x4000: Primary operand and result storage
+//   0x4001: Secondary operand
+// =============================================================================
+
+// Enable debug mode for detailed output
+0b0101010              // DEBUG MODE ON
+
+// Initialize operands: 12 (binary: 1100) and 10 (binary: 1010)
+0b0000100 0x4000 #12   // Load immediate value 12 into 0x4000
+0b0000100 0x4001 #10   // Load immediate value 10 into 0x4001
+
+// Bitwise AND operation: 12 & 10 = 8 (1000 in binary)
+0b0010100 0x4000 0x4001 // AND: 0x4000 = 0x4000 & 0x4001
+0b0000011 0x4000        // PRINT result
+
+// Bitwise OR operation: 12 | 10 = 14 (1110 in binary)
+0b0010101 0x4000 0x4001 // OR: 0x4000 = 0x4000 | 0x4001
+0b0000011 0x4000        // PRINT result
+
+// Bitwise XOR operation: 12 ^ 10 = 6 (0110 in binary)
+0b0010110 0x4000 0x4001 // XOR: 0x4000 = 0x4000 ^ 0x4001
+0b0000011 0x4000        // PRINT result
+
+// Bitwise NOT operation: ~6 = -7 (two's complement)
+0b0010111 0x4000        // NOT: 0x4000 = ~0x4000
+0b0000011 0x4000        // PRINT result
+
+// Terminate program execution
+0b0000000              // HALT
+// =============================================================================
